@@ -1,5 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { Speaker } from './presentation.model';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Attendee } from '../attendee/attendee.entity';
 
 @Entity()
 export class Presentation {
@@ -18,6 +18,6 @@ export class Presentation {
   @Column()
   speaker: string;
 
-  @Column()
-  attendees: number;
+  @OneToMany(() => Attendee, (attendee) => attendee.presentation)
+  attendees: Attendee[];
 }

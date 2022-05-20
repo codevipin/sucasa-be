@@ -1,5 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import 'dotenv/config';
+import { Attendee } from 'src/api/attendee/attendee.entity';
 import { Presentation } from 'src/api/presentation/presentation.entity';
 
 class ConfigService {
@@ -38,7 +39,7 @@ class ConfigService {
       password: this.getValue('POSTGRES_PASSWORD'),
       database: this.getValue('POSTGRES_DATABASE'),
 
-      entities: [Presentation],
+      entities: [Presentation, Attendee],
       synchronize: true,
       ssl: this.isProduction(),
     };
