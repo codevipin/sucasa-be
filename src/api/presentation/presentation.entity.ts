@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 import { Attendee } from '../attendee/attendee.entity';
 
 @Entity()
@@ -18,6 +24,7 @@ export class Presentation {
   @Column()
   speaker: string;
 
-  @OneToMany(() => Attendee, (attendee) => attendee.presentation)
+  @ManyToMany(() => Attendee, (attendee) => attendee.presentation)
+  @JoinTable()
   attendees: Attendee[];
 }

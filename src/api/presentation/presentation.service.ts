@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { InsertResult, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Presentation } from './presentation.entity';
 
 @Injectable()
@@ -11,7 +11,7 @@ export class PresentationService {
   ) {}
 
   findAll(): Promise<Presentation[]> {
-    return this.presentationsRepository.find();
+    return this.presentationsRepository.find({ relations: ['attendees'] });
   }
 
   findOne(id: number): Promise<Presentation> {
@@ -19,6 +19,7 @@ export class PresentationService {
       where: {
         id,
       },
+      relations: ['attendees'],
     });
   }
 
@@ -27,7 +28,10 @@ export class PresentationService {
   }
 
   async add(presentation: Presentation): Promise<void> {
-    console.log('presentation', presentation);
     await this.presentationsRepository.insert(presentation);
+  }
+
+  async patch(presentation: Presentation): Promise<void> {
+    await this.presentationsRepository.save(presentation);
   }
 }

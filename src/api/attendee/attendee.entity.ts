@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
 import { Presentation } from '../presentation/presentation.entity';
 
 @Entity()
@@ -18,6 +18,6 @@ export class Attendee {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   registered: Date;
 
-  @ManyToOne((type) => Presentation, (presentation) => presentation.attendees)
+  @ManyToMany(() => Presentation, (presentation) => presentation.attendees)
   presentation: Presentation;
 }
