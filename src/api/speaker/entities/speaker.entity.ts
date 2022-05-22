@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Presentation } from 'src/api/presentation/presentation.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Speaker {
@@ -16,4 +17,7 @@ export class Speaker {
 
   @Column({ type: 'varchar', length: 300 })
   bio: string;
+
+  @OneToMany(() => Presentation, (presentation) => presentation.speaker)
+  presentation: Presentation[];
 }

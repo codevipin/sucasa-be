@@ -4,8 +4,10 @@ import {
   PrimaryGeneratedColumn,
   ManyToMany,
   JoinTable,
+  ManyToOne,
 } from 'typeorm';
 import { Attendee } from '../attendee/attendee.entity';
+import { Speaker } from '../speaker/entities/speaker.entity';
 
 @Entity()
 export class Presentation {
@@ -21,10 +23,10 @@ export class Presentation {
   @Column('int')
   room: number;
 
-  @Column()
-  speaker: string;
-
   @ManyToMany(() => Attendee, (attendee) => attendee.presentation)
   @JoinTable()
   attendees: Attendee[];
+
+  @ManyToOne(() => Speaker, (speaker) => speaker.presentation)
+  speaker: Speaker;
 }

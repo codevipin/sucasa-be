@@ -17,6 +17,12 @@ export class SpeakerService {
       .then((items) => items.map((e) => SpeakerDto.fromEntity(e)));
   }
 
+  async findOne(id: number): Promise<SpeakerDto> {
+    return await this.repo
+      .findOne({ where: { id } })
+      .then((e) => SpeakerDto.fromEntity(e));
+  }
+
   async create(dto: SpeakerDto): Promise<SpeakerDto> {
     return this.repo.save(dto).then((e) => SpeakerDto.fromEntity(e));
   }

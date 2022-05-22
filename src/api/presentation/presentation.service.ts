@@ -11,7 +11,9 @@ export class PresentationService {
   ) {}
 
   findAll(): Promise<Presentation[]> {
-    return this.presentationsRepository.find({ relations: ['attendees'] });
+    return this.presentationsRepository.find({
+      relations: ['attendees', 'speaker'],
+    });
   }
 
   findOne(id: number): Promise<Presentation> {
@@ -19,7 +21,7 @@ export class PresentationService {
       where: {
         id,
       },
-      relations: ['attendees'],
+      relations: ['attendees', 'speaker'],
     });
   }
 
