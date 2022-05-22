@@ -8,6 +8,8 @@ import {
   Post,
 } from '@nestjs/common';
 import { AttendeeService } from '../attendee/attendee.service';
+import { SpeakerDto } from '../speaker/dto/create-speaker.dto';
+import { SpeakerService } from '../speaker/speaker.service';
 import { Presentation } from './presentation.entity';
 import { PresentationService } from './presentation.service';
 
@@ -16,6 +18,7 @@ export class PresentationController {
   constructor(
     private service: PresentationService,
     private attendeeService: AttendeeService,
+    private speakerService: SpeakerService,
   ) {}
 
   @Get(':id')
@@ -31,8 +34,14 @@ export class PresentationController {
   }
 
   @Post()
-  createPresentation(@Body() presentation: Presentation): Promise<void> {
-    return this.service.add(presentation);
+  async createPresentation(@Body() presentation: Presentation): Promise<void> {
+    const speaker = await this.speakerService.create(
+      SpeakerDto.fromEntity(presentation.speaker),
+    );
+    return this.service.add({
+      ...presentation,
+      speaker: SpeakerDto.toEntity(speaker),
+    });
   }
 
   @Patch(':presentation_id/attendees/:attendee_id')

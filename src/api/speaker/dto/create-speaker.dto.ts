@@ -44,13 +44,13 @@ export class SpeakerDto implements Readonly<SpeakerDto> {
     });
   }
 
-  public toEntity() {
+  public static toEntity({ id, name, bio, email, company }: SpeakerDto) {
     const it = new Speaker();
-    it.id = this.id;
-    it.name = this.name;
-    it.bio = this.bio;
-    it.company = this.company;
-    it.email = this.email;
+    it.id = id;
+    it.name = name;
+    it.bio = bio;
+    it.company = company;
+    it.email = email;
     return it;
   }
 }
