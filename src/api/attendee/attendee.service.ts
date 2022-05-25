@@ -22,7 +22,7 @@ export class AttendeeService {
     });
   }
 
-  async add(attendee: Attendee): Promise<void> {
-    await this.attendeesRepository.insert(attendee);
+  async add(attendee: Attendee): Promise<Attendee> {
+    return await this.attendeesRepository.save(attendee);
   }
 }

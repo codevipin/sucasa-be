@@ -29,11 +29,11 @@ export class PresentationService {
     await this.presentationsRepository.delete(id);
   }
 
-  async add(presentation: Presentation): Promise<void> {
-    await this.presentationsRepository.insert(presentation);
+  async add(presentation: Presentation): Promise<Presentation> {
+    return await this.presentationsRepository.save(presentation);
   }
 
-  async patch(presentation: Presentation): Promise<void> {
-    await this.presentationsRepository.save(presentation);
+  async patch(presentation: Presentation): Promise<Presentation> {
+    return await this.presentationsRepository.save(presentation);
   }
 }

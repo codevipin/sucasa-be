@@ -34,7 +34,9 @@ export class PresentationController {
   }
 
   @Post()
-  async createPresentation(@Body() presentation: Presentation): Promise<void> {
+  async createPresentation(
+    @Body() presentation: Presentation,
+  ): Promise<Presentation> {
     const speaker = await this.speakerService.create(
       SpeakerDto.fromEntity(presentation.speaker),
     );
@@ -44,11 +46,11 @@ export class PresentationController {
     });
   }
 
-  @Patch(':presentation_id/attendees/:attendee_id')
+  @Patch(':presentation_id/attendee/:attendee_id')
   async addAttendees(
     @Param('presentation_id', ParseIntPipe) presentationId: number,
     @Param('attendee_id', ParseIntPipe) attendeeId: number,
-  ): Promise<void> {
+  ): Promise<Presentation> {
     const attendee = await this.attendeeService.findOne(attendeeId);
     const presentation = await this.service.findOne(presentationId);
     return this.service.patch({

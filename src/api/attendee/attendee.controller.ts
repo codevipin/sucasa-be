@@ -24,7 +24,7 @@ export class AttendeeController {
   }
 
   @Post()
-  createAttendee(@Body() attendee: Attendee): Promise<void> {
+  createAttendee(@Body() attendee: Attendee): Promise<Attendee> {
     return this.service.add(attendee);
   }
 }
