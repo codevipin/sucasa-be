@@ -12,7 +12,7 @@ import { join } from 'path';
   imports: [
     TypeOrmModule.forRoot(configService.getTypeOrmConfig()),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'build'),
+      rootPath: join(__dirname, '..', 'client'),
     }),
     PresentationModule,
     AttendeeModule,
